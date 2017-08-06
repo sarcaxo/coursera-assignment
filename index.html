@@ -36,7 +36,7 @@
     <div class="col-md-6" ng-controller = "ShoppingListController1 as ctrl1">
      <h2>To Buy:</h2>
      <ul>
-       <li ng-repeat = "item in ctrl1.buyList">buy {{item.quantity}} {{item.name}}<button class="btn btn-default" ng-click = "ctrl1.buyItem($index)"><span class="glyphicon glyphicon-ok"></span> Bought</button></li>
+       <li ng-repeat = "item in ctrl1.buyList">buy {{item.quantity}} units {{item.name}}<button class="btn btn-default" ng-click = "ctrl1.buyItem($index)"><span class="glyphicon glyphicon-ok"></span> Bought</button></li>
        
      </ul>
      <div class="emptyMessage" ng-hide = "ctrl1.buyList.length > 0">Everything is bought!</div>
