@@ -1,28 +1,60 @@
-var app = angular.module("app", []);
+(function() {
+  "use strict";
 
-app.controller ( "MainController" , function($scope){
-    $scope.message = "";
-    $scope.inputString = "";
-    $scope.clickfunc = function(){
-        var input = $scope.inputString.split(',');
-        var count = 0;
-        for (var i = 0 ; i< input.length ; i++){
-            if(input[i] == ""  || input[i] == " ")
-                continue;
-            else
-                count++
-        }
-        
-        
-        if (count == 0)
-            $scope.message = "Please enter the data first!";
-        else
-            if(count <=3 )
-            $scope.message = "Enjoy!";
-        else
-            $scope.message = "Too much";
-        
-    }
-});
+  var app = angular.module("app", []);
+    app.controller("ShoppingListController1" , ShoppingListController1);
+    app.controller("ShoppingListController2" , ShoppingListController2);
+    app.service("ShoppingListService" , ShoppingListService);
 
 
+  ShoppingListController1.$inject = ["ShoppingListService"];
+  function ShoppingListController1(ShoppingListService) {
+    
+
+    this.buyList = ShoppingListService.getBuyList();
+
+    this.buyItem = function(index) {
+      ShoppingListService.buyItem(index);
+    };
+  }
+
+
+  ShoppingListController2.$inject = ["ShoppingListService"];
+  function ShoppingListController2(ShoppingListService) {
+    
+
+    this.boughtList = ShoppingListService.getBoughtList();
+  }
+
+
+  
+  function ShoppingListService() {
+    var service = this;
+
+    var buyList = [{ name : "Cookies",
+                     quantity : "10"} , 
+                   { name : "Chips",
+                     quantity : "5"},
+                   { name : "Coke",
+                     quantity : "2"},
+                   { name : "Cake",
+                     quantity : "1"},
+                   { name : "Candles",
+                     quantity : "10"}];
+
+    var boughtList = [];
+
+    service.getBuyList = function () {
+      return buyList;
+    };
+
+    service.getBoughtList = function () {
+      return boughtList;
+    };
+
+    service.buyItem = function (index) {
+      boughtList.push(buyList[index]);
+      buyList.splice(index, 1);
+    };
+  }
+})();
